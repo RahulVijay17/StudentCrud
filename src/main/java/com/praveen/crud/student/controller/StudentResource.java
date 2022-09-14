@@ -28,6 +28,11 @@ public class StudentResource {
     @Autowired
     private FileUploadHelper fileUploadHelper;
 
+        @GetMapping("/student-name")
+    public String name(){
+        return "Rahul";
+    }
+
     @PostMapping("/student")
     public StudentDto addStudent( @RequestBody StudentDto studentDto) {
         logger.info("Adding method");
@@ -53,9 +58,26 @@ public class StudentResource {
             logger.error("not registered");
             return studentDtoList;
         }
-
-
     }
+
+    @GetMapping("/students")
+    public List<StudentDto> getStudents() {
+        List<StudentDto> studentDtoList = new ArrayList<>();
+        try {
+            studentDtoList = studentService.getAllStudent();
+            return studentDtoList;
+        } catch (Exception e) {
+            logger.error("not registered");
+            return studentDtoList;
+        }
+    }
+
+    @GetMapping("/get-msg")
+    public String getMsg() {
+        return "Hi";
+    }
+
+
 
     @GetMapping("/student/{id}")
     public StudentDto getstudent(@PathVariable Integer id) {
